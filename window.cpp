@@ -71,8 +71,9 @@ bool Window::generate_consensus(para_t* para, bool trim) {
     graph* DAG = new graph();
     DAG->init(para);
     aligned_buff_t* mpool = new aligned_buff_t;
-    std::vector<res_t> res = alignment(para, DAG, nullptr, 0, sequences_.front().first, mpool);
-    DAG->add_path(para->m, 0, res);
+    
+    std::vector<res_t> res = alignment(para, DAG, nullptr, 0, sequences_.front().first, sequences_.front().second, mpool);
+    DAG->add_path(para->m, 0, res, 1);
     DAG->topsort(para, 0);
 
     std::vector<uint32_t> rank;
@@ -99,9 +100,11 @@ bool Window::generate_consensus(para_t* para, bool trim) {
             sink_id = 1;
         }
         else {
+
             int beg_id = positions_[i].first + 2;
             int end_id = positions_[i].second + 1 == sequences_.front().second ? 1 : positions_[i].second + 1 + 2;
             res = poa(para, DAG, beg_id, end_id, i, sequences_[i].first + 1, sequences_[i].second - 1, mpool, para->ab_band);
+            if(end_id == 1) sink_id = 1;
             // std::vector<int32_t> mapping;
             // auto subgraph = graph->subgraph(positions_[i].first,
             //     positions_[i].second, mapping);
@@ -155,6 +158,7 @@ bool Window::generate_consensus(para_t* para, bool trim) {
     mpool = nullptr;  // 防止后续误用
     delete DAG;
     DAG = nullptr;  // 防止后续误用
+    return true;
 }
 
 }
