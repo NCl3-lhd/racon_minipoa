@@ -10,8 +10,8 @@ tar -zxvf racon-v1.4.13.tar.gz && cd racon-v1.4.13
 git clone https://github.com/NCl3-lhd/minipoa.git
 
 # replace SPOA with minipoa:
-cp ../minipoa -r vendor/
-cp ../CMakeLists.txt CMakeLists.txt
+cp ./minipoa -r vendor/
+cp ../Racon_Minipoa_CMakeLists.txt CMakeLists.txt
 cp ../polisher.cpp src/polisher.cpp
 cp ../polisher.hpp src/polisher.hpp
 cp ../window.cpp src/window.cpp

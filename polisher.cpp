@@ -186,10 +186,12 @@ Polisher::Polisher(std::unique_ptr<bioparser::Parser<Sequence>> sparser,
         para->mismatch = mismatch;
         para->gap_ext1 = gap;
         para->gap_open1 = 2 * para->gap_ext1;
-        para->b = 100;
+        para->b = 25;
         para->f = 40;
         para->ab_band = false;
         para->result = 0;
+        para->enable_seeding = false;
+        para->thread = 1;
         // para->verbose = 1;
         initPara(para);
         alignment_engines_.emplace_back(para);
